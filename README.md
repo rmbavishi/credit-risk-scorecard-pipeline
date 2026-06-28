@@ -88,6 +88,6 @@ jupyter notebook notebooks/          # open and run the notebook
 
 ## Background
 
-10+ years of experience in consumer lending and risk analytics, currently as a Principal,
+10+ years of experience in consumer lending, risk and finance analytics, currently as a Principal,
 Risk and Analytics. My recent work has included evaluating alternative cash-flow data for credit
 decisioning, using the same champion/challenger methodology demonstrated in this repo.
