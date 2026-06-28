@@ -3,9 +3,9 @@
 A single, focused notebook demonstrating production-style credit risk scorecard
 development: data cleaning, leakage-safe imputation, feature engineering, and
 LightGBM modeling — all wired together as a genuine `sklearn.pipeline.Pipeline`
-object, not loose sequential script code.
+object.
 
-**Author:** Rishi Bavishi · [LinkedIn](https://www.linkedin.com/in/rishi-bavishi-25050845/) · rmbavishi22@gmail.com
+**Author:** Rishi Bavishi · [LinkedIn](https://www.linkedin.com/in/rishi-bavishi-25050845/) 
 
 ---
 
@@ -14,15 +14,7 @@ object, not loose sequential script code.
 Most "ML portfolio" notebooks show preprocessing and modeling as separate, sequential
 script steps. That's fine for exploration, but it's not how this should be built for
 production. This notebook instead wraps feature engineering, imputation, and categorical
-encoding as actual **pipeline steps**, so that:
-
-- The exact same fitted object can be called as `pipeline.predict_proba(new_application)`
-  on a single brand-new raw application — no manual preprocessing step required at
-  inference time
-- There's zero risk of **training/serving skew** — a common real-world bug where feature
-  logic used during training silently drifts from what's implemented in the serving code
-- The whole thing — feature engineering, imputation, encoding, model — can be pickled,
-  versioned, and deployed as one artifact
+encoding as actual **pipeline steps**.
 
 ---
 
@@ -46,7 +38,7 @@ No real, proprietary, or employer data is used anywhere in this repo.
 
 | File | What it covers |
 |---|---|
-| [`notebooks/01_credit_risk_scorecard_pipeline.ipynb`](notebooks/01_credit_risk_scorecard_pipeline.ipynb) | The full pipeline: a custom `FeatureEngineer` transformer, `ColumnTransformer`-based imputation/encoding, a reusable pipeline-builder function, champion/challenger comparison (bureau-only vs. + cash-flow), ROC/AUC/KS evaluation, permutation feature importance, and a live demo scoring a single new application end-to-end |
+| [`notebooks/01_credit_risk_scorecard_pipeline.ipynb`](notebooks/01_credit_risk_scorecard_pipeline.ipynb) | The full pipeline: a custom `FeatureEngineer` transformer, `ColumnTransformer`-based imputation/encoding, a reusable pipeline-builder function, champion/challenger comparison (bureau-only vs. + cash-flow), ROC/AUC/KS evaluation, permutation feature importance, SHAP feature importance, sample loan with SHAP features' contribution to decisioning and a live demo scoring a single new application end-to-end |
 
 ---
 
@@ -55,6 +47,7 @@ No real, proprietary, or employer data is used anywhere in this repo.
 | | |
 |---|---|
 | ![ROC Curve](outputs/roc_curve.png) | ![Feature Importance](outputs/feature_importance.png) |
+| ![SHAP Summary](outputs/shap_summary.png) | ![SHAP Single Loan](outputs/shap_single_loan.png) |
 
 Adding the 15 cash-flow attributes lifted the Gini coefficient from **0.506 to 0.596** (a
 **+0.090** absolute lift), with cash-flow attributes accounting for roughly half of the
@@ -68,7 +61,7 @@ In my day-to-day work I build and validate ML-based credit decisioning models an
 whether alternative data sources (e.g., cash-flow attributes) justify integration into
 existing scorecards — quantified via Gini lift in a champion/challenger framework. This
 notebook reconstructs that methodology on synthetic data, built the way it would actually
-be deployed: as a single, reusable pipeline rather than disconnected preprocessing steps.
+be deployed.
 
 ---
 
@@ -78,6 +71,7 @@ be deployed: as a single, reusable pipeline rather than disconnected preprocessi
 - pandas, numpy
 - **LightGBM** (gradient boosting model)
 - scikit-learn (`Pipeline`, `ColumnTransformer`, custom transformers, permutation importance, metrics)
+- SHAP feature importance
 - matplotlib
 
 ## Running locally
@@ -94,8 +88,6 @@ jupyter notebook notebooks/          # open and run the notebook
 
 ## Background
 
-10+ years of experience across consumer lending, risk analytics, and operations — currently
-Principal, Risk and Analytics at Upbound Group. Recent work includes a retrospective credit
-strategy analysis using alternative cash-flow data that quantified $15.8M in profit from
-standalone model retraining plus an additional $7.7M in projected incremental profit from
-combining alternative data with an existing scorecard.
+10+ years of experience in consumer lending and risk analytics, currently as a Principal,
+Risk and Analytics. My recent work has included evaluating alternative cash-flow data for credit
+decisioning, using the same champion/challenger methodology demonstrated in this repo.
