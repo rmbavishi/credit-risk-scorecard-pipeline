@@ -20,8 +20,6 @@ This project uses a **hybrid synthetic dataset** (see [`data/generate_data.py`](
   like Plaid operate in — so these are constructed to mirror the *kind* of signal that data
   provides, with a deliberately constructed underlying relationship to default risk.
 
-No real, proprietary, or employer data is used anywhere in this repo.
-
 ---
 
 ## What's in this repo
