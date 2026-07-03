@@ -28,6 +28,7 @@ This project uses a **hybrid synthetic dataset** (see [`data/generate_data.py`](
 |---|---|
 | [`notebooks/01_credit_risk_scorecard_pipeline.ipynb`](notebooks/01_credit_risk_scorecard_pipeline.ipynb) | The full pipeline: a custom `FeatureEngineer` transformer, `ColumnTransformer`-based imputation/encoding, a reusable pipeline-builder function, champion/challenger comparison (bureau-only vs. + cash-flow), ROC/AUC/KS evaluation, permutation feature importance, SHAP feature importance, sample loan with SHAP features' contribution to decisioning and a live demo scoring a single new application end-to-end |
 
+|---|---|
 | [`notebooks/02_model_monitoring_psi.ipynb`](notebooks/02_model_monitoring_psi.ipynb) | Independent model monitoring: Population Stability Index (PSI) on input features, Characteristic Stability Index (CSI) on the model's own score distribution, and Kolmogorov-Smirnov (KS) testing as a cross-check — with rolling monthly tracking that catches drift a single snapshot comparison would miss |
 ---
 
