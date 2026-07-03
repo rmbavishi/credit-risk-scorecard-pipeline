@@ -8,15 +8,6 @@ that model in production using PSI, CSI, and statistical drift testing.
 
 ---
 
-## Why a real pipeline matters
-
-Most "ML portfolio" notebooks show preprocessing and modeling as separate, sequential
-script steps. That's fine for exploration, but it's not how this should be built for
-production. This notebook instead wraps feature engineering, imputation, and categorical
-encoding as actual **pipeline steps**.
-
----
-
 ## ⚠️ A note on the data
 
 This project uses a **hybrid synthetic dataset** (see [`data/generate_data.py`](data/generate_data.py)):
