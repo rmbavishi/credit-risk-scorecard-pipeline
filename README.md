@@ -1,9 +1,8 @@
-# Credit Risk Scorecard — A Real `sklearn.Pipeline` with LightGBM
+# Credit Risk Scorecard & Model Monitoring — `sklearn.Pipeline` with LightGBM
 
-A single, focused notebook demonstrating production-style credit risk scorecard
-development: data cleaning, leakage-safe imputation, feature engineering, and
-LightGBM modeling — all wired together as a genuine `sklearn.pipeline.Pipeline`
-object.
+Two notebooks demonstrating production-style credit risk work: building a
+scorecard as a `sklearn.pipeline.Pipeline`, and independently monitoring
+that model in production using PSI, CSI, and statistical drift testing.
 
 **Author:** Rishi Bavishi · [LinkedIn](https://www.linkedin.com/in/rishi-bavishi-25050845/) 
 
@@ -40,6 +39,7 @@ No real, proprietary, or employer data is used anywhere in this repo.
 |---|---|
 | [`notebooks/01_credit_risk_scorecard_pipeline.ipynb`](notebooks/01_credit_risk_scorecard_pipeline.ipynb) | The full pipeline: a custom `FeatureEngineer` transformer, `ColumnTransformer`-based imputation/encoding, a reusable pipeline-builder function, champion/challenger comparison (bureau-only vs. + cash-flow), ROC/AUC/KS evaluation, permutation feature importance, SHAP feature importance, sample loan with SHAP features' contribution to decisioning and a live demo scoring a single new application end-to-end |
 
+| [`notebooks/02_model_monitoring_psi.ipynb`](notebooks/02_model_monitoring_psi.ipynb) | Independent model monitoring: Population Stability Index (PSI) on input features, Characteristic Stability Index (CSI) on the model's own score distribution, and Kolmogorov-Smirnov (KS) testing as a cross-check — with rolling monthly tracking that catches drift a single snapshot comparison would miss |
 ---
 
 ## Sample results
@@ -48,10 +48,17 @@ No real, proprietary, or employer data is used anywhere in this repo.
 |---|---|
 | ![ROC Curve](outputs/roc_curve.png) | ![Feature Importance](outputs/feature_importance.png) |
 | ![SHAP Summary](outputs/shap_summary.png) | ![SHAP Single Loan](outputs/shap_single_loan.png) |
+| ![Score Distribution Shift](outputs/score_distribution_shift.png) | ![PSI Summary](outputs/psi_summary.png) |
+| ![PSI Drilldown](outputs/psi_drilldown.png) | ![Rolling PSI](outputs/rolling_psi.png) |
 
 Adding the 15 cash-flow attributes lifted the Gini coefficient from **0.506 to 0.596** (a
 **+0.090** absolute lift), with cash-flow attributes accounting for roughly half of the
 top 15 most predictive features.
+
+The monitoring notebook catches a gradual population drift in the recent vintages —
+invisible in a single before/after snapshot, but clearly visible in the rolling
+monthly PSI trend, which crosses the significant-shift threshold well before it
+would show up in lagging performance metrics like charge-off rate.
 
 ---
 
@@ -61,7 +68,8 @@ In my day-to-day work I build and validate ML-based credit decisioning models an
 whether alternative data sources (e.g., cash-flow attributes) justify integration into
 existing scorecards — quantified via Gini lift in a champion/challenger framework. This
 notebook reconstructs that methodology on synthetic data, built the way it would actually
-be deployed.
+be deployed. Additionally, all deployed models need to be monitored for their stability and 
+drift the second notebook captures just that.
 
 ---
 
@@ -72,6 +80,7 @@ be deployed.
 - **LightGBM** (gradient boosting model)
 - scikit-learn (`Pipeline`, `ColumnTransformer`, custom transformers, permutation importance, metrics)
 - SHAP feature importance
+- scipy (statistical testing)
 - matplotlib
 
 ## Running locally
